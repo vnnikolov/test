@@ -1,0 +1,39 @@
+name: Build docker image from branch
+
+concurrency:
+  group: test
+  cancel-in-progress: false
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to build the image for
+        required: true
+        type: choice
+        options:
+          - 'dev'
+          - 'testing'
+          - 'stage'
+          - 'production'
+
+jobs:
+  init:
+    name: Initialize
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    outputs:
+      BRANCH: ${{ steps.branch.outputs.ENV_BRANCH }}
+    steps:
+      - name: Extract branch
+        id: branch
+        run: |
+          echo "ENV_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+  docker:
+    name: Build docker image
+    timeout-minutes: 15
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Set environment variables
+        run: |
+          echo "TEST=${{ vars.TEST_FOR_ENV }}" >>$GITHUB_ENV
