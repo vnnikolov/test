@@ -23,7 +23,7 @@ jobs:
       - name: Bump version in package.json
         id: bump_version
         run: |
-          yarn version --patch --no-git-tag-version
+          yarn version --patch
           echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
 
       - name: Create and push tag
