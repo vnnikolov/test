@@ -1,0 +1,8 @@
+{
+  "name": "test",
+  "version": "1.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/vnnikolov/test",
+  "author": "vnikolov <vnikolov@sbtsolution.com>",
+  "license": "MIT"
+}
