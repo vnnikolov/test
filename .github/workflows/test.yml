@@ -26,6 +26,11 @@ jobs:
           yarn version --patch --no-git-tag-version
           echo "::set-output name=new_version::$(node -p -e "require('./package.json').version")"
 
+      - name: Commit and push changes to package.json
+        run: |
+          git commit -am "Bump version to v${{ steps.bump_version.outputs.new_version }}"
+          git push origin HEAD:main
+
       - name: Create and push tag
         id: create_tag
         run: |
