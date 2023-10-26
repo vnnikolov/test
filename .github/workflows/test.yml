@@ -3,7 +3,7 @@ name: CI - Create tag
 on:
   push:
     branches:
-      - 'stable'
+      - 'main'
 
 jobs:
   create-tag:
